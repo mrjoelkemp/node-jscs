@@ -21,6 +21,8 @@ describe('rules/disallow-space-after-binary-operators', function() {
         var notSticked = 'var test; test ' + operator + ' 2';
         var notStickedWithParenthesis = 'var test; (test) ' + operator + ' (2)';
 
+        var wrapped = 'var test; test\n' + operator + '2';
+
         [[operator], true].forEach(function(value) {
             it('should not report sticky operator for ' + sticked + ' with ' + value + ' option',
                 function() {
@@ -38,6 +40,12 @@ describe('rules/disallow-space-after-binary-operators', function() {
                 function() {
                     checker.configure({ disallowSpaceAfterBinaryOperators: [operator] });
                     assert(checker.checkString(stickedWithParenthesis).isEmpty());
+                }
+            );
+            it('should not report wrapped operator for ' + wrapped + ' with ' + value + ' option',
+                function() {
+                    checker.configure({ disallowSpaceAfterBinaryOperators: [operator] });
+                    assert(checker.checkString(wrapped).isEmpty());
                 }
             );
             it('should report sticky operator for ' + notStickedWithParenthesis + ' with ' + value + ' option',
