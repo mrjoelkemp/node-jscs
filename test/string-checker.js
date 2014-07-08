@@ -63,7 +63,7 @@ describe('modules/string-checker', function() {
         }
     });
 
-    it('should use configuration at the top of the file, if supplied', function () {
+    it.only('should use configuration at the top of the file, if supplied', function () {
         var checker = new Checker();
         checker.registerDefaultRules();
         checker.configure({
