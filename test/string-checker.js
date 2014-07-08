@@ -2,7 +2,7 @@ var Checker = require('../lib/checker');
 var assert = require('assert');
 
 describe('modules/string-checker', function() {
-    describe('line srating with hash, temporary, until we will have inline rules', function() {
+    describe('line starting with hash, temporary, until we will have inline rules', function() {
         var checker;
         beforeEach(function() {
             checker = new Checker();
@@ -61,6 +61,18 @@ describe('modules/string-checker', function() {
         } catch (e) {
             assert(e.toString() === 'Error: Preset "not-exist" does not exist');
         }
+    });
+
+    it('should use configuration at the top of the file, if supplied', function () {
+        var checker = new Checker();
+        checker.registerDefaultRules();
+        checker.configure({
+            preset: 'google'
+        });
+
+        return checker.checkFile('./test/data/fileConfig.js').then(function (errors) {
+          assert(errors.isEmpty());
+        });
     });
 
     describe('rules registration', function() {
