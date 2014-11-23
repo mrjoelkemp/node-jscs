@@ -612,4 +612,24 @@ describe('modules/cli', function() {
             });
         });
     });
+
+    describe.only('validate-jsdoc bug #(778)', function() {
+        beforeEach(function() {
+            sinon.spy(console, 'log');
+        });
+
+        afterEach(function() {
+            console.log.restore();
+        });
+        it('should not report for valid param types', function() {
+            return cli({
+                args: ['test/data/cli/jsdocError.js'],
+                config: 'test/data/cli/jsdocError.json'
+            })
+            .promise.always(function() {
+                assert(console.log.getCall(0).args[0] === 'No code style errors found.');
+                rAfter();
+            });
+        });
+    });
 });
