@@ -1,0 +1,7 @@
+{
+  "preset": "google",
+  "validateJSDoc": {
+    "requireParamTypes": true,
+    "checkParamNames": true
+  }
+}
